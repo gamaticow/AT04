@@ -35,8 +35,6 @@
         <property name="connection.pool_size">1</property>
 		<!--
         <mapping class="commerce.catalogue.domaine.modele.Article"/>
-    	<mapping class="commerce.catalogue.domaine.modele.Livre"/>
-    	<mapping class="commerce.catalogue.domaine.modele.Musique"/>
-    	<mapping class="commerce.catalogue.domaine.modele.Piste"/> -->
+    	<mapping class="commerce.catalogue.domaine.modele.Jeu"/>-->
     </session-factory>
 </hibernate-configuration>

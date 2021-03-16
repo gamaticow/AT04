@@ -1,15 +1,15 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="../enTetePage.html"%>
-<%@ page import="commerce.catalogue.domaine.modele.Musique" %>
+<%@ page import="commerce.catalogue.domaine.modele.Jeu" %>
 <%@ page import="java.lang.reflect.Field" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Arrays" %>
 <%
-  Musique musique = new Musique() ;
+  Jeu jeu = new Jeu() ;
 %>
-    <form action="controleMusiques.jsp?commande=ajouter" method="post">
+    <form action="controleJeux.jsp?commande=ajouter" method="post">
 <%
-  Field[] articleFields = musique.getClass().getSuperclass().getDeclaredFields();
+  Field[] articleFields = jeu.getClass().getSuperclass().getDeclaredFields();
   ArrayList<Field> list = new ArrayList<Field>(Arrays.asList(articleFields));
   for (int i = 0; i < list.size(); i++) {
     if (list.get(i).getName().equals("refArticle")) {
@@ -42,20 +42,17 @@
 	  </div>
 <%
   }
-  Field[] musiqueFields = musique.getClass().getDeclaredFields();
+  Field[] musiqueFields = jeu.getClass().getDeclaredFields();
   list = new ArrayList<Field>(Arrays.asList(musiqueFields));
   for (int i = 0; i < list.size(); i++) {
     if (list.get(i).getName().equals("dateDeParution")) {
-	  list.remove(i);
-    }
-	if (list.get(i).getName().equals("pistes")) {
 	  list.remove(i);
     }
   }
   musiqueFields = list.toArray(new Field[musiqueFields.length-2]);
   for (Field articleField : musiqueFields) {
     String articleLabel = articleField.getName().substring(0,1).toUpperCase() + articleField.getName().substring(1) ;
-	String value = "" ;
+    String value = "" ;
 	String pattern = ".*" ;
 	if(articleField.getType().toString().equals("int")) {
 	   value = "0";

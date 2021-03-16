@@ -1,20 +1,20 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="../enTetePage.html"%>
-<%@ page import="commerce.catalogue.domaine.modele.Musique" %>
+<%@ page import="commerce.catalogue.domaine.modele.Jeu" %>
 <%@ page import="java.lang.reflect.Field" %>
 <%@ page import="java.lang.reflect.Method" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Arrays" %>
 <%
-Musique  musique = (Musique)session.getAttribute("musique") ;
-if (musique == null)
+Jeu jeu = (Jeu) session.getAttribute("jeu") ;
+if (jeu == null)
 	response.sendRedirect(response.encodeURL("index.jsp")) ;
  else { 
 %>
-    <form action="controleMusiques.jsp?commande=modifier" method="post">
-	  <input type="hidden" name="refArticle" value="<%=musique.getRefArticle() %>"/>
+    <form action="controleJeux.jsp?commande=modifier" method="post">
+	  <input type="hidden" name="refArticle" value="<%=jeu.getRefArticle() %>"/>
 <%
-  Field[] articleFields = musique.getClass().getSuperclass().getDeclaredFields();
+  Field[] articleFields = jeu.getClass().getSuperclass().getDeclaredFields();
   ArrayList<Field> list = new ArrayList<Field>(Arrays.asList(articleFields));
   for (int i = 0; i < list.size(); i++) {
     if (list.get(i).getName().equals("refArticle")) {
@@ -25,7 +25,7 @@ if (musique == null)
   for (Field articleField : articleFields) {
     String articleLabel = articleField.getName().substring(0,1).toUpperCase() + articleField.getName().substring(1) ;
 	Class noparams[] = {};
-	Method method = musique.getClass().getSuperclass().getDeclaredMethod("get" + articleLabel,noparams) ;
+	Method method = jeu.getClass().getSuperclass().getDeclaredMethod("get" + articleLabel,noparams) ;
 	String pattern = ".*" ;
 	if(articleField.getType().toString().equals("int")) {
 	   pattern = "\\d+" ;
@@ -41,20 +41,17 @@ if (musique == null)
         <label for="_<%=articleField.getName() %>_id"><%=articleLabel %></label>
 		<div>
 		  <input type="text" size="70" name="<%=articleField.getName() %>" value="<% 
-		  if(method.invoke(musique, null)!=null) out.print(method.invoke(musique, null)); 
+		  if(method.invoke(jeu, null)!=null) out.print(method.invoke(jeu, null));
           else out.print(""); 
           %>" required pattern="<%=pattern %>"/>
 		</div>
 	  </div>
 <%
   }
-  Field[] musiqueFields = musique.getClass().getDeclaredFields();
+  Field[] musiqueFields = jeu.getClass().getDeclaredFields();
   list = new ArrayList<Field>(Arrays.asList(musiqueFields));
   for (int i = 0; i < list.size(); i++) {
     if (list.get(i).getName().equals("dateDeParution")) {
-	  list.remove(i);
-    }
-	if (list.get(i).getName().equals("pistes")) {
 	  list.remove(i);
     }
   }
@@ -62,7 +59,7 @@ if (musique == null)
   for (Field articleField : musiqueFields) {
     String articleLabel = articleField.getName().substring(0,1).toUpperCase() + articleField.getName().substring(1) ;
 	Class noparams[] = {};
-	Method method = musique.getClass().getDeclaredMethod("get" + articleLabel,noparams) ;
+	Method method = jeu.getClass().getDeclaredMethod("get" + articleLabel,noparams) ;
 	String pattern = ".*" ;
 	if(articleField.getType().toString().equals("int")) {
 	   pattern = "\\d+" ;
@@ -78,7 +75,7 @@ if (musique == null)
         <label for="_<%=articleField.getName() %>_id"><%=articleLabel %></label>
 		<div>
 		  <input type="text" size="70" name="<%=articleField.getName() %>" value="<% 
-		  if(method.invoke(musique, null)!=null) out.print(method.invoke(musique, null)); 
+		  if(method.invoke(jeu, null)!=null) out.print(method.invoke(jeu, null));
           else out.print(""); 
           %>" required pattern="<%=pattern %>"/>
 		</div>

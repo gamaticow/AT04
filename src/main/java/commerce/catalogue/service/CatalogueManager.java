@@ -13,13 +13,12 @@ import org.hibernate.Session;
 import org.hibernate.Query;
 
 import commerce.catalogue.domaine.modele.Article;
-import commerce.catalogue.domaine.modele.Piste;
 import commerce.catalogue.domaine.utilitaire.HibernateUtil;
 import commerce.catalogue.domaine.utilitaire.UniqueKeyGenerator;
 
 public class CatalogueManager {
 
-	private List articles; 
+	private List<Article> articles;
 	
 	public Article chercherArticleParRef(String inRefArticle) throws Exception {
 		Article article ;
@@ -70,29 +69,10 @@ public class CatalogueManager {
 			throw e; 
 		}
 	}
-	public void soumettrePiste(Piste inPiste) throws Exception {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
-		try {
-			session.beginTransaction();
-			if (inPiste.getRefPiste() == null) {
-				inPiste.setRefPiste(new UniqueKeyGenerator().getUniqueId()) ;
-				session.save(inPiste) ;
-			}
-			else {
-				session.saveOrUpdate(inPiste) ;
-			}
-			session.getTransaction().commit();
-		}
-		catch (RuntimeException e) {
-			if (session.getTransaction() != null)
-				session.getTransaction().rollback();
-			throw e; 
-		}
-	}
-	public void setArticles(List inArticles) throws Exception {
+	public void setArticles(List<Article> inArticles) throws Exception {
 		articles = inArticles;
 	}
-	public List getArticles() throws Exception {
+	public List<Article> getArticles() throws Exception {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession() ;
 		try {
 			session.beginTransaction();
