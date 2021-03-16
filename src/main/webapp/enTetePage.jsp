@@ -1,3 +1,6 @@
+
+<%@page import="commerce.catalogue.domaine.modele.Utilisateur" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,4 +26,24 @@
 				<div id="logo">
 					<h1 class="site-title">Site web marchand</h1>
 				</div>
+				<%
+
+					Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+
+					System.out.println(utilisateur);
+
+					if (utilisateur == null && !request.getRequestURI().contains("connexion.jsp")) {
+				%>
+
+				<p class="alignright" ><a href="connexion.jsp">connexion</a> / <a href="connexion.jsp?type=inscription">inscription</a></p>
+
+				<%
+					}else if (utilisateur != null) {
+				%>
+
+				<p class="aligncenter">Bienvenue <%= utilisateur.getPrenom() %> <%= utilisateur.getNom() %></p><a href="controleUtilisateur.jsp?action=deconnexion" class="alignright">deconnexion</a>
+
+				<%
+					}
+				%>
 			</header>

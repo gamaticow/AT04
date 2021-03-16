@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ include file="enTetePage.html"%>
+<%@ include file="enTetePage.jsp"%>
 <%@ page import="commerce.catalogue.service.CatalogueManager"%>
 <%@ page import="commerce.catalogue.domaine.modele.Article"%>
 <%@ page import="java.util.Iterator"%>
